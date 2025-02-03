@@ -1,0 +1,134 @@
+/* 📌 태그 필터 전체 */
+.video-filter {
+    margin-bottom: 16px;
+  }
+  
+  /* 📌 필터 제목 */
+  .filter-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* 📌 태그 검색 입력창 */
+  .filter-input, .search-input{
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #222;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  .download-input{
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #222;
+    border-bottom: none;
+    box-sizing: border-box;
+  }
+  
+  /* 📌 필터 그룹 (카테고리별 태그) */
+  .filter-group {
+    margin-bottom: 6px;
+  }
+  
+  /* 📌 카테고리 제목 */
+  .filter-category {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 2px;
+  }
+  
+  /* 📌 태그 목록 */
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  /* 📌 태그 버튼 기본 스타일 (선택되지 않은 상태) */
+  .tag-button {
+    padding: 2px 4px;
+    font-size: 12px;
+    border: 1px solid #979797;
+    color: #b0b0b0;
+    cursor: pointer;
+    background: none;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s;
+  }
+  
+  /* 📌 한 번 클릭 (OR 필터) */
+  .tag-button.selected-or {
+    color: #007bff;
+    border-color: #0056b3;
+  }
+  
+  /* 📌 두 번 클릭 (AND 필터) */
+  .tag-button.selected-and {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+  }
+  
+
+  .filter-container{
+    padding: 0 20px 0 20px;
+  }
+
+
+  .video-controls {
+    width: 100%;
+  }
+  
+  .controls-container {
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .sort-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .sort-label {
+    font-weight: bold;
+  }
+  
+  .sort-select {
+    padding: 8px;
+    background-color: transparent;
+    border: 1px solid #3186db;
+    color: #3186db;
+    font-weight: bold;
+  }
+  
+  /* ⭐ 즐겨찾기 버튼 */
+  .favorites-button {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: 1px solid #888;
+    cursor: pointer;
+    background-color: transparent;
+    font-weight: bold;
+    color: #b0b0b0;
+  }
+  
+  .favorites-button.active {
+    border-color: #3186db;
+    color: #3186db;
+  }
+  
+  /* 체크박스 숨김 */
+  .hidden-checkbox {
+    display: none;
+  }

@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("/fonts/AppleSDGothicNeo-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("/fonts/AppleSDGothicNeo-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("/fonts/AppleSDGothicNeo-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("/fonts/AppleSDGothicNeo-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --background: #000;
+  --foreground: #fff;
+}
+
+
+html,
+body {
+  font-family: "AppleSDGothicNeo", Arial, sans-serif;
+  font-weight: 400;
+  width: 100vw;
+  overflow-x: hidden;
+  color: var(--foreground);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+video{
+  width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+/* 📌 PC에서는 기본 위치 유지 */
+@media (min-width: 769px) {
+  .app-container {
+    margin-left: 240px;
+  }
+}
+/* 📌 전체 레이아웃 */
+.app-container {
+  width: 100%;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+/* 📌 메인 콘텐츠 */
+.main-content {
+  flex-grow: 1;
+}
