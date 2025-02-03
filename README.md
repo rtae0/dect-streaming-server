@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📺 DECT Streaming Server
 
-## Getting Started
+> **DECT Streaming Server**는 개인용 비디오 스트리밍 및 관리 시스템입니다.  
+> **Next.js**, **SQLite**, **yt-dlp**를 기반으로 동영상을 다운로드, 관리, 스트리밍할 수 있습니다.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ 주요 기능
+✅ **비디오 다운로드**: YouTube, Twitter 등의 URL을 입력하여 동영상 다운로드  
+✅ **자동 썸네일 생성**: Python을 이용한 썸네일 자동 생성 (`ffmpeg` 활용)  
+✅ **태그 및 필터링 지원**: 카테고리별 태그 정렬 및 검색 기능  
+✅ **즐겨찾기 및 조회수 기록**: 즐겨찾기 등록 및 하루 1회 조회수 증가 제한  
+✅ **USB 파일 복사 및 변환**: USB에서 파일 가져오기, MP4 변환 기능  
+✅ **데이터 동기화**: 다운로드 폴더와 DB를 자동으로 동기화  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🏗️ 기술 스택
+| 기술        | 설명 |
+|------------|------|
+| **Next.js 14** | React 기반 프레임워크 |
+| **SQLite** | 경량 데이터베이스 |
+| **yt-dlp** | 동영상 다운로드 관리 |
+| **Tailwind CSS** | 스타일링 (미사용 시 삭제 가능) |
+| **FFmpeg** | 영상 및 썸네일 처리 |
+| **Python** | 썸네일 생성용 스크립트 |
