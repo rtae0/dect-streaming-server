@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { exec } from "child_process";
+import { execSync } from "child_process";
 import path from "path";
 import { PATHS } from "@/config/paths";
 import fs from "fs";
@@ -19,21 +19,29 @@ export async function POST() {
       return NextResponse.json({ message: "No MP4 files found" });
     }
 
-    // 📌 누락된 썸네일 생성
+    // 📌 누락된 썸네일 생성 (순차 실행)
     for (const file of mp4Files) {
       const fileNameWithoutExt = path.parse(file).name;
       const thumbnailPath = path.join(DATA_DIR, `${fileNameWithoutExt}.png`);
 
       if (!fs.existsSync(thumbnailPath)) {
-        console.log(`📸 생성 중: ${thumbnailPath}`);
-        exec(`python3 "${SCRIPT_PATH}" "${path.join(DATA_DIR, file)}" "${thumbnailPath}"`, (err, stdout, stderr) => {
-          if (err) console.error("❌ 썸네일 생성 오류:", err);
-          else console.log(`✅ 썸네일 생성 완료: ${thumbnailPath}`);
-        });
+        const inputVideoPath = path.join(DATA_DIR, file);
+        console.log(`📸 썸네일 생성 시작: ${inputVideoPath}`);
+
+        try {
+          execSync(`python3 "${SCRIPT_PATH}" "${inputVideoPath}" "${thumbnailPath}"`, {
+            stdio: "inherit", // Python 출력 콘솔에 바로 표시
+          });
+          console.log(`✅ 썸네일 생성 완료: ${thumbnailPath}`);
+        } catch (err) {
+          console.error(`❌ 오류 발생 (${file}):`, err);
+        }
+      } else {
+        console.log(`🟡 이미 존재: ${thumbnailPath}`);
       }
     }
 
-    return NextResponse.json({ success: true, message: "Thumbnails generated" });
+    return NextResponse.json({ success: true, message: "Thumbnails generated sequentially" });
   } catch (error) {
     console.error("❌ Thumbnail Generation Error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
