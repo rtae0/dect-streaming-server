@@ -114,7 +114,28 @@ sudo mkdir -p /media/pi/
 sudo mkdir -p /mnt/usb/
 ```
 
-### 7. 프로젝트 실행
+### 7. 미디어 파일 저장소 설정 (중요)
+```bash
+# 외부 SSD 또는 저장장치 마운트 (예시)
+sudo mkdir -p /mnt/ssd
+sudo mount /dev/sda1 /mnt/ssd
+
+# 미디어 파일용 디렉토리 생성
+sudo mkdir -p /mnt/ssd/data
+
+# 프로젝트에서 외부 저장소 접근을 위한 심볼릭 링크 생성 (필수)
+cd /path/to/dect-streaming-server/public
+rm -rf data  # 기존 data 폴더가 있다면 삭제
+ln -s /mnt/ssd/data data
+
+# 권한 설정
+sudo chown -R pi:pi /mnt/ssd/data
+sudo chmod -R 755 /mnt/ssd/data
+```
+
+> **⚠️ 중요**: 이 단계는 필수입니다. 심볼릭 링크가 없으면 웹 애플리케이션에서 비디오 파일에 접근할 수 없습니다.
+
+### 8. 프로젝트 실행
 ```bash
 # 개발 서버 실행
 npm run dev
