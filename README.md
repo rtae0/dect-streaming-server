@@ -22,3 +22,188 @@
 | **SQLite** | 경량 데이터베이스 |
 | **FFmpeg** | 영상 및 썸네일 처리 |
 | **Python** | 썸네일 생성용 스크립트 |
+
+# 프로젝트 설치 가이드 (라즈베리파이)
+
+## 필수 요구사항
+- 라즈베리파이 OS (Raspberry Pi OS)
+- Node.js
+- Python 3.x (기본 설치됨)
+- Git
+
+## 설치 과정
+
+### 1. 시스템 업데이트 및 기본 패키지 설치
+```bash
+# 시스템 업데이트
+sudo apt update && sudo apt upgrade -y
+
+# Git 설치 (설치되지 않은 경우)
+sudo apt install git -y
+
+# 기본 개발 도구 설치
+sudo apt install build-essential -y
+```
+
+### 2. Node.js 설치
+```bash
+# Node.js 설치 (권장: LTS 버전)
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# 또는 snap 사용
+# sudo snap install node --classic
+
+# 설치 확인
+node --version
+npm --version
+```
+
+### 3. 프로젝트 클론 및 기본 설정
+```bash
+# 프로젝트 클론
+git clone [your-repository-url]
+cd dect-streaming-server
+
+# Node.js 의존성 설치
+npm install
+
+# 권한 문제 발생시
+sudo npm install
+
+# 보안 취약점 해결 (선택사항)
+npm audit fix
+```
+
+### 4. 데이터베이스 관련 패키지 설치
+```bash
+# SQLite 관련 패키지
+npm install sqlite3 sqlite
+
+# 컴파일 에러 발생시 추가 패키지 설치
+sudo apt install libsqlite3-dev -y
+
+# 또는 더 안정적인 대안
+npm install better-sqlite3
+```
+
+### 5. Python 이미지 처리 라이브러리 설치
+```bash
+# Python 패키지 관리자 업데이트
+sudo apt install python3-pip -y
+
+# OpenCV 의존성 설치
+sudo apt install libopencv-dev python3-opencv -y
+sudo apt install libatlas-base-dev libjasper-dev libqtgui4 libqt4-test -y
+
+# Python 라이브러리 설치
+pip3 install opencv-python-headless
+pip3 install Pillow numpy
+
+# 또는 한번에 설치
+pip3 install opencv-python-headless Pillow numpy
+```
+
+### 6. USB 자동 마운트 설정 (선택사항)
+```bash
+# USB 자동 마운트를 위한 설정
+sudo apt install usbmount -y
+
+# 또는 수동 마운트 디렉토리 생성
+sudo mkdir -p /media/pi/
+sudo mkdir -p /mnt/usb/
+```
+
+### 7. 프로젝트 실행
+```bash
+# 개발 서버 실행
+npm run dev
+
+# 또는 프로덕션 모드
+npm run build
+npm start
+
+# 기본적으로 http://localhost:3000 에서 실행됩니다
+# 라즈베리파이 IP로 외부 접속: http://[라즈베리파이IP]:3000
+```
+
+### 8. 서비스 등록 (자동 시작 설정)
+```bash
+# systemd 서비스 파일 생성
+sudo nano /etc/systemd/system/dect-streaming.service
+
+# 다음 내용 추가:
+# [Unit]
+# Description=DECT Streaming Server
+# After=network.target
+# 
+# [Service]
+# Type=simple
+# User=pi
+# WorkingDirectory=/home/pi/dect-streaming-server
+# ExecStart=/usr/bin/npm start
+# Restart=always
+# 
+# [Install]
+# WantedBy=multi-user.target
+
+# 서비스 활성화
+sudo systemctl enable dect-streaming.service
+sudo systemctl start dect-streaming.service
+```
+
+## 주요 기능
+- Next.js + TypeScript 기반 웹 애플리케이션
+- SQLite 데이터베이스 연동
+- 동영상 썸네일 자동 생성 (OpenCV, PIL 사용)
+- USB 드라이브 파일 자동 복사 기능
+- 라즈베리파이 최적화
+
+## 문제 해결
+
+### Node.js 컴파일 에러
+```bash
+# 메모리 부족시 스왑 파일 생성
+sudo dphys-swapfile swapoff
+sudo nano /etc/dphys-swapfile
+# CONF_SWAPSIZE=1024 로 변경
+sudo dphys-swapfile setup
+sudo dphys-swapfile swapon
+```
+
+### Python 모듈 에러
+```bash
+# 권한 문제 해결
+sudo pip3 install opencv-python-headless Pillow numpy
+
+# 또는 사용자 설치
+pip3 install --user opencv-python-headless Pillow numpy
+```
+
+### USB 마운트 확인
+```bash
+# 연결된 USB 확인
+lsblk
+df -h
+
+# 수동 마운트
+sudo mount /dev/sda1 /media/pi/usb
+```
+
+### 설치 확인
+```bash
+# Node.js 모듈 확인
+npm list
+
+# Python 모듈 확인
+python3 -c "import cv2, PIL; print('모든 모듈 설치 완료')"
+
+# 서비스 상태 확인
+sudo systemctl status dect-streaming.service
+```
+
+## 성능 최적화 팁
+- 라즈베리파이 4 이상 권장 (최소 4GB RAM)
+- 고속 SD카드 사용 (Class 10 이상)
+- 필요시 외부 SSD 사용
+- GPU 메모리 할당: `sudo raspi-config` → Advanced Options → Memory Split → 128
