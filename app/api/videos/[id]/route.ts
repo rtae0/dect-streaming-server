@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import fs from "fs";
-import path from "path";
+import { PATHS } from "@/config/paths";
 
 // 📌 DB 연결 함수
 async function getDB() {
   return open({
-    filename: "./database/db.sqlite",
+    filename: PATHS.DB_FILE,
     driver: sqlite3.Database,
   });
 }
@@ -37,9 +37,8 @@ export async function DELETE(req: Request) {
     await db.close();
 
     // 📌 파일 경로 설정
-    const videoPath = path.join(process.cwd(), "public", "data", `${video.file_name}.mp4`);
-    const thumbnailPath = path.join(process.cwd(), "public", "data", `${video.file_name}.png`);
-
+    const videoPath = PATHS.getVideoPath(video.file_name);
+    const thumbnailPath = PATHS.getThumbnailPath(video.file_name);
     // 📌 비디오 파일 삭제
     if (fs.existsSync(videoPath)) {
       fs.unlinkSync(videoPath);

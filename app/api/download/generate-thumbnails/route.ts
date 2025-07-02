@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { exec } from "child_process";
 import path from "path";
+import { PATHS } from "@/config/paths";
 import fs from "fs";
 
 // 📌 데이터 폴더 및 스크립트 경로 설정
-const DATA_DIR = path.join(process.cwd(), "public", "data");
+const DATA_DIR = PATHS.DATA_DIR;
 const SCRIPT_PATH = path.join(process.cwd(), "scripts", "generate_thumbnail.py");
 
 // 📌 썸네일 생성 라우터

@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import { spawn, exec } from "child_process";
 import path from "path";
+import { PATHS } from "@/config/paths";
 import fs from "fs";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
 // 📌 다운로드 폴더 및 스크립트 경로 설정
-const DATA_DIR = path.join(process.cwd(), "public", "data");
+const DATA_DIR = PATHS.DATA_DIR;
 const SCRIPT_PATH = path.join(process.cwd(), "scripts", "generate_thumbnail.py");
 
 // 📌 DB 연결 함수
 async function getDB() {
-  return open({ filename: "./database/db.sqlite", driver: sqlite3.Database });
+  return open({ filename: PATHS.DB_FILE, driver: sqlite3.Database });
 }
 
 // 📌 현재 날짜 및 시간 기반 파일명 생성 (YYMMDD_HHMMSS)

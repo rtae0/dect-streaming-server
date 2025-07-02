@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { exec } from "child_process";
 import path from "path";
+import { PATHS } from "@/config/paths";
 import fs from "fs";
 
 // 📌 USB 마운트 디렉토리 (라즈베리파이에서 자동 마운트되는 경로 확인 필요)
 const USB_MOUNT_DIR = "/media/pi";  // ⚠️ 실제 USB 마운트 경로로 변경 필요
-const DATA_DIR = path.join(process.cwd(), "public", "data"); // 데이터 저장 폴더
+const DATA_DIR = PATHS.DATA_DIR;
 
 // 🔥 USB에서 파일 복사하는 함수
 async function copyFilesFromUSB() {

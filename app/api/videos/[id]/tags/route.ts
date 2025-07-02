@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+import { PATHS } from "@/config/paths";
 
 // 📌 DB 연결 함수
 async function getDB() {
-  return open({ filename: "./database/db.sqlite", driver: sqlite3.Database });
+  return open({ filename: PATHS.DB_FILE, driver: sqlite3.Database });
 }
 
 // 📌 비디오 태그 업데이트 API

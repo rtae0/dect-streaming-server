@@ -3,15 +3,16 @@ import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import fs from "fs";
 import path from "path";
+import { PATHS } from "@/config/paths";
 import { exec } from "child_process";
 
 // 📌 데이터 폴더 경로
-const DATA_DIR = path.join(process.cwd(), "public", "data");
+const DATA_DIR = PATHS.DATA_DIR;
 
 // 📌 DB 연결 함수
 async function getDB() {
   return open({
-    filename: "./database/db.sqlite",
+    filename: PATHS.DB_FILE,
     driver: sqlite3.Database,
   });
 }

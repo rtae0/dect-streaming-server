@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import sqlite3 from "sqlite3";
 import { open, Database } from "sqlite"; // 🔥 `Database` 명확하게 지정
+import { PATHS } from "@/config/paths";
 
 // 📌 SQLite3 인스턴스를 싱글톤으로 유지
 let dbInstance: Database | null = null;
@@ -8,7 +9,7 @@ let dbInstance: Database | null = null;
 async function getDB(): Promise<Database> {
   if (!dbInstance) {
     dbInstance = await open({
-      filename: "./database/db.sqlite",
+      filename: PATHS.DB_FILE,
       driver: sqlite3.Database,
     });
   }
